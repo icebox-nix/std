@@ -8,16 +8,19 @@ It is a "standard library" for icebox plugins. User set value in it for plugins 
 Code your `configuration.nix` like this
 ```nix
 let
-  std  = builtins.fetchurl "https://github.com/icebox-nix/std/raw/master/std.nix";
+  std =
+    builtins.fetchurl "https://github.com/icebox-nix/std/raw/master/std.nix";
 in {
   # Other parts omitted
   icebox = {
     # Other parts omitted
-	 lib = {
-       modules = [ (import "${std}" { lib = lib; }) ];
-       configs = {
-         # Other parts omitted
-	 };
+    lib = {
+      modules = [ (import "${std}" { lib = lib; }) ];
+      configs = {
+        # Other parts omitted
+      };
+    };
   };
 }
+
 ```
