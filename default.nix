@@ -41,7 +41,6 @@ in {
 
             ramSize = mkOption {
               type = types.int;
-              readOnly = true;
               description = "RAM size in KB (under 1 GB = 1024 KB scale)";
             };
 
