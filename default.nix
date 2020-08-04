@@ -4,13 +4,13 @@ let
   dirsModule = types.submodule {
     options = {
       secrets = mkOption {
-        type = types.path;
+        type = with types; attrsOf str;
         description =
-          "Relative path to secrets directory where we store keyfiles and other credential stuff.";
+          "Absolute path to secrets like keyfiles and other credential stuff. The secrets must be presented. Use coersion to store secrets in the store if you have to (this method then has security implication).";
       };
 
       dotfiles = mkOption {
-        type = types.path;
+        type = with types; attrsOf path;
         description =
           "Relative path to directory where we could store dotfiles.";
       };
