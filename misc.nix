@@ -21,6 +21,6 @@ in {
   config = {
     powerManagement.resumeCommands =
       optionalString (cfg.restartOnResumeServices != null)
-      (mkAfter (serviceResumeCommands l));
+      (mkAfter (serviceResumeCommands cfg.restartOnResumeServices));
   };
 }
