@@ -6,8 +6,8 @@ let
   tryRestartCommand = n: ''
     ${config.systemd.package}/bin/systemctl try-restart ${n}
   '';
-  serviceResumeCommands = (lists.foldr (a: b: a + b) ""
-    (lists.forEach cfg.restartOnResumeServices (x: tryRestartCommand x)));
+  serviceResumeCommands = l:
+    (lists.foldr (a: b: a + b) "" (lists.forEach l (x: tryRestartCommand x)));
 in {
   options.std.misc = {
     restartOnResumeServices = mkOption {
@@ -21,6 +21,6 @@ in {
   config = {
     powerManagement.resumeCommands =
       optionalString (cfg.restartOnResumeServices != null)
-      (mkAfter serviceResumeCommands);
+      (mkAfter (serviceResumeCommands l));
   };
 }
