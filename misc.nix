@@ -3,8 +3,9 @@ with lib;
 
 let
   cfg = config.std.misc;
+  # Don't fail all the services if one of them fails
   tryRestartCommand = n: ''
-    ${config.systemd.package}/bin/systemctl try-restart ${n}
+    ${config.systemd.package}/bin/systemctl try-restart ${n} || true
   '';
   serviceResumeCommands = l:
     (lists.foldr (a: b: a + b) "" (lists.forEach l (x: tryRestartCommand x)));
